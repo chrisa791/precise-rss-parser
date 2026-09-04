@@ -1,0 +1,21 @@
+{
+  "name": "precise-rss-parser",
+  "version": "0.1.0",
+  "description": "RSS 2.0 parser with line/column error messages. Zero dependencies.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "rss",
+    "feed",
+    "xml",
+    "parser"
+  ],
+  "author": "chrisa791",
+  "license": "MIT"
+}

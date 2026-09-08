@@ -68,6 +68,13 @@ mismatched closing tag: expected </item> but found </itme> (line 14, column 3)
 - `src/rss.ts` - walks the parsed XML tree and extracts an RSS 2.0 feed
   (`channel`, `item` elements) into plain objects.
 - `src/index.ts` - public exports.
+- `test/` - tests using Node's built-in test runner, including a set of
+  malformed-feed fixtures under `test/fixtures/` for the errors that matter
+  most: mismatched tags, unterminated comments, missing required elements,
+  bad entities, duplicate attributes.
+
+Run the tests with `npm test` (this builds first, then runs `node --test`
+against the compiled output).
 
 ## Status
 

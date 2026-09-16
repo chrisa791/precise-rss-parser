@@ -78,10 +78,10 @@ against the compiled output).
 
 ## Status
 
-Early skeleton. Handles RSS 2.0 core fields only: channel `title`/`link`/
-`description`, and item `title`/`link`/`description`/`guid`/`pubDate`.
-Namespaced extensions (`content:encoded`, `media:*`), enclosures, and Atom
-feeds are not handled yet.
+Early skeleton. Handles RSS 2.0 core fields: channel `title`/`link`/
+`description`, and item `title`/`link`/`description`/`guid`/`pubDate`/
+`enclosure`/`categories`. Namespaced extensions (`content:encoded`,
+`media:*`) and Atom feeds are not handled yet.
 
 ## License
 

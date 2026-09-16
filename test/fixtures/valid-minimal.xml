@@ -9,6 +9,9 @@
       <link>https://example.com/1</link>
       <guid>https://example.com/1</guid>
       <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/1.mp3" type="audio/mpeg" length="1024" />
+      <category>Tech</category>
+      <category domain="https://example.com/categories">News</category>
     </item>
     <item>
       <title>Second post</title>

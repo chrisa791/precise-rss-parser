@@ -17,12 +17,33 @@ test('parses channel metadata and items from a well-formed feed', () => {
   assert.equal(first.link, 'https://example.com/1');
   assert.equal(first.guid, 'https://example.com/1');
   assert.equal(first.pubDate, 'Mon, 01 Jan 2024 00:00:00 GMT');
+  assert.deepEqual(first.enclosure, {
+    url: 'https://example.com/1.mp3',
+    type: 'audio/mpeg',
+    length: 1024,
+  });
+  assert.deepEqual(first.categories, [
+    { name: 'Tech' },
+    { name: 'News', domain: 'https://example.com/categories' },
+  ]);
 
   assert.equal(second.title, 'Second post');
   assert.equal(second.description, 'No link or guid, just a description.');
   assert.equal(second.link, undefined);
   assert.equal(second.guid, undefined);
   assert.equal(second.pubDate, undefined);
+  assert.equal(second.enclosure, undefined);
+  assert.deepEqual(second.categories, []);
+});
+
+test('rejects an <enclosure> missing a required attribute', () => {
+  assert.throws(() => parseRss(fixture('bad-enclosure.xml')), (error) => {
+    assert.ok(error instanceof FeedParseError);
+    assert.match(error.message, /<enclosure> is missing a required 'length' attribute/);
+    assert.equal(error.line, 9);
+    assert.equal(error.column, 7);
+    return true;
+  });
 });
 
 test('rejects a document whose root element is not <rss>', () => {

@@ -1,0 +1,10 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Broken Media</title>
+    <link>https://example.com</link>
+    <description>A media:content with no url.</description>
+    <item>
+      <media:content type="video/mp4"/>
+    </item>
+  </channel>
+</rss>

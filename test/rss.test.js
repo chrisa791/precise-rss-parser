@@ -36,6 +36,42 @@ test('parses channel metadata and items from a well-formed feed', () => {
   assert.deepEqual(second.categories, []);
 });
 
+test('reads content:encoded and media elements through any prefix', () => {
+  const feed = parseRss(fixture('namespaced.xml'));
+  const [clip, grouped] = feed.items;
+  assert.equal(clip.contentEncoded, '<p>Full <b>body</b></p>');
+  assert.deepEqual(clip.media.content, [
+    { url: 'https://example.com/clip.mp4', type: 'video/mp4', medium: 'video', width: 640, height: 360 },
+  ]);
+  assert.deepEqual(clip.media.thumbnails, [{ url: 'https://example.com/clip.jpg', width: 120, height: 90 }]);
+
+  assert.equal(grouped.contentEncoded, undefined);
+  assert.deepEqual(grouped.media.content, [
+    { url: 'https://example.com/a.mp4' },
+    { url: 'https://example.com/b.mp4', type: 'video/mp4' },
+  ]);
+  assert.deepEqual(grouped.media.thumbnails, []);
+});
+
+test('ignores prefixed elements whose prefix is not bound to a known namespace', () => {
+  const feed = parseRss(
+    '<rss version="2.0"><channel><title>t</title><link>l</link><description>d</description>' +
+      '<item><content:encoded>x</content:encoded><media:content url="u"/></item></channel></rss>'
+  );
+  assert.equal(feed.items[0].contentEncoded, undefined);
+  assert.deepEqual(feed.items[0].media, { content: [], thumbnails: [] });
+});
+
+test('rejects a <media:content> without a url', () => {
+  assert.throws(() => parseRss(fixture('bad-media-content.xml')), (error) => {
+    assert.ok(error instanceof FeedParseError);
+    assert.match(error.message, /<media:content> is missing a required 'url' attribute/);
+    assert.equal(error.line, 7);
+    assert.equal(error.column, 7);
+    return true;
+  });
+});
+
 test('rejects an <enclosure> missing a required attribute', () => {
   assert.throws(() => parseRss(fixture('bad-enclosure.xml')), (error) => {
     assert.ok(error instanceof FeedParseError);

@@ -80,8 +80,10 @@ against the compiled output).
 
 Early skeleton. Handles RSS 2.0 core fields: channel `title`/`link`/
 `description`, and item `title`/`link`/`description`/`guid`/`pubDate`/
-`enclosure`/`categories`. Namespaced extensions (`content:encoded`,
-`media:*`) and Atom feeds are not handled yet.
+`enclosure`/`categories`. Also `content:encoded` (as `contentEncoded`) and
+Media RSS `media:content` / `media:thumbnail` (as `item.media`, including
+those inside `media:group`). Namespaces are matched by URI, so any prefix
+works. Other `media:*` elements and Atom feeds are not handled yet.
 
 ## License
 
